@@ -1,0 +1,45 @@
+//Largest Common Element in Two Arrays - codechef (easy)
+//https://www.codechef.com/practice/course/two-pointers/POINTERF/problems/DSAPROB20
+/*
+You are given two arrays of positive integers, arr1 and arr2, of sizes n and m respectively. Your task is to find the largest common element that appears in both arrays. If no common element exists, return −1.
+*/
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int largestCommonElement(vector<int>& arr1, vector<int>& arr2) {
+    int j = 0;
+    sort(arr1.begin(), arr1.end());
+    sort(arr2.begin(), arr2.end());
+    if (arr1[arr1.size() - 1] == arr2[0]) return arr2[0];
+    else if (arr1[arr1.size() - 1] < arr2[0]) return -1;
+    int maxi = -1, i = 0;
+    while (i < arr1.size() && j < arr2.size()) {
+        if (arr1[i] == arr2[j]) {
+            maxi = max(maxi, arr1[i]);
+            i++;
+            j++;
+        }
+        else if (arr1[i] < arr2[j]) {
+            i++;
+        }
+        else {
+            j++;
+        }
+    }
+    return maxi;
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    vector<int> arr1(n), arr2(m);
+    for (int i = 0; i < n; ++i) cin >> arr1[i];
+    for (int i = 0; i < m; ++i) cin >> arr2[i];
+    sort(arr1.begin(),arr1.end());
+    sort(arr2.begin(),arr2.end());
+    cout << largestCommonElement(arr1, arr2) << endl;
+    return 0;
+}
